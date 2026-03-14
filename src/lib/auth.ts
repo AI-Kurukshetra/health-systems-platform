@@ -3,12 +3,20 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { extractRole, getDashboardPathByRole, getRoleLabel, type AppRole } from "@/lib/roles";
 
 export async function getCurrentUser() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  return user;
+    return user;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`[auth] ${error.message}`);
+    }
+
+    return null;
+  }
 }
 
 export async function getCurrentAuthState() {
