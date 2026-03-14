@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eefbfb;
+  --foreground: #11484b;
+  --card: rgba(255, 255, 255, 0.92);
+  --primary: #24c1bf;
+  --primary-strong: #159f9d;
+  --secondary: #148388;
+  --accent: #ffc63a;
+  --muted: #5c7f81;
+  --border: rgba(36, 193, 191, 0.18);
+  --ring: rgba(255, 198, 58, 0.28);
+  --danger: #b42318;
+  --danger-soft: #fef0ec;
+  --success-soft: #eefbf2;
+  --warning-soft: #fff7ea;
+  --font-sans: var(--font-body), "Segoe UI", sans-serif;
+  --font-display: var(--font-heading), var(--font-body), sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    background:
+      radial-gradient(circle at top left, rgba(36, 193, 191, 0.2), transparent 28%),
+      radial-gradient(circle at top right, rgba(20, 131, 136, 0.14), transparent 24%),
+      radial-gradient(circle at bottom left, rgba(255, 198, 58, 0.14), transparent 28%),
+      var(--background);
+  }
+
+  body {
+    min-height: 100vh;
+    background: transparent;
+    color: var(--foreground);
+    font-family: var(--font-sans), sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(36, 193, 191, 0.24);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display), sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .app-surface {
+    @apply rounded-[28px] border border-border bg-card shadow-[0_22px_48px_-28px_rgba(17,72,75,0.16)] backdrop-blur-sm;
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 251, 251, 0.96));
+  }
+
+  .app-muted-surface {
+    @apply rounded-3xl border border-border bg-white/84 shadow-[0_18px_36px_-30px_rgba(17,72,75,0.16)] backdrop-blur-sm;
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(236, 250, 250, 0.8));
+  }
+
+  .section-kicker {
+    @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-primary;
+  }
+
+  .eyebrow-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary;
+  }
+
+  .skeleton-line {
+    @apply animate-pulse rounded-full bg-primary/15;
+  }
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(36, 193, 191, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 131, 136, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
